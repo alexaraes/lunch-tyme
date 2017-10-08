@@ -86,7 +86,7 @@ class GoogleMap extends React.Component {
 
 	        	this.hideAll();
 
-	            selectRestaurant(restaurant, selectedRestaurantId, true);
+	            selectRestaurant(restaurant, index, true);
  
 	        }.bind(this));
 
