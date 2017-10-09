@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const Card = ({restaurant, selectedRestaurant, selectRestaurant, index}) => {
+const Card = ({filterIsVisible, restaurant, selectedRestaurant, selectRestaurant, index}) => {
 	const {name, backgroundImageURL, location, category} = restaurant;
 	const {address, city} = location;
 
@@ -10,7 +10,7 @@ const Card = ({restaurant, selectedRestaurant, selectRestaurant, index}) => {
         backgroundImage: 'url(' + backgroundImageURL + ')'
     }
 
-	return <div id={`card-${index}`} alt={name} style={bgImg} className={`card col-sm-12 col-md-6 col-lg-4 ${restaurant === selectedRestaurant ? 'is-active' : ''}`} 
+	return <div id={`card-${index}`} alt={name} style={bgImg} className={`card col-sm-12 col-md-6 col-lg-4 ${restaurant === selectedRestaurant ? 'is-active' : ''} `} 
 				onClick={(e) => selectRestaurant(restaurant, index, false, e)}>
 			
 			<div>

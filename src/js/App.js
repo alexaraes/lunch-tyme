@@ -16,7 +16,7 @@ class App extends React.Component {
       restaurants: data.restaurants,
       selectedRestaurant: data.restaurants[0],
       selectedRestaurantId: 0,
-      filterIsVisible: false,
+      filterIsVisible: null,
       isFiltering: false
     }
 
@@ -68,7 +68,6 @@ class App extends React.Component {
   }
 
   toggleFilter() {
-    console.log('toggle', this.state.filterIsVisible);
     this.setState({
       filterIsVisible: !this.state.filterIsVisible
     })
@@ -103,7 +102,7 @@ class App extends React.Component {
                 toggleFilter={this.toggleFilter} 
                 handleFilterChange={this.handleFilterChange}
             />
-            <div className="cards container">
+            <div className={`cards container ${filterIsVisible ? 'hide' : ''} `}>
                 <div className="cards-list row "> 
                     
                     {
@@ -132,6 +131,10 @@ class App extends React.Component {
         </div>
 
         <Detail 
+          restaurants={restaurants} 
+          selectedRestaurant={selectedRestaurant}
+          selectedRestaurantId={selectedRestaurantId}
+          selectRestaurant={this.selectRestaurant}
           filterIsVisible={filterIsVisible} 
           toggleFilter={this.toggleFilter} 
           handleFilterChange={this.handleFilterChange}
