@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({filterIsVisible, toggleFilter, handleFilterChange}) => {
+const Header = ({detailIsVisible, toggleDetail, handleDetailChange}) => {
 	return (
 		<div className="row header">
-			<div className="col-xs-2 img-responsive" onClick={(e) => toggleFilter(e)} >
-				<img className="arrow-icon" src={require("../images/ic_webBack@2x.png")} />
+			<div className="col-xs-2 img-responsive" onClick={(e) => toggleDetail(e)} >
+				<img className={`arrow-icon ${detailIsVisible ? '' : 'hide'}`} src={require("../images/ic_webBack@2x.png")} />
 			</div>
 			<div className="col-xs-8">
 				<header>
@@ -20,9 +20,9 @@ const Header = ({filterIsVisible, toggleFilter, handleFilterChange}) => {
 };
 
 Header.propTypes = {
-	filterIsVisible: PropTypes.bool.isRequired,
-	toggleFilter: PropTypes.func.isRequired,
-	handleFilterChange: PropTypes.func.isRequired
+	detailIsVisible: PropTypes.bool.isRequired,
+	toggleDetail: PropTypes.func.isRequired,
+	handleDetailChange: PropTypes.func.isRequired
 }
 
 export default Header;

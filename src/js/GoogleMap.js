@@ -17,8 +17,6 @@ class GoogleMap extends React.Component {
 
 		this.hideAll();
 
-		console.log(selectedRestaurantId);
-
 		this.showInfoWindow(selectedRestaurantId);
 
 	}
@@ -98,9 +96,9 @@ class GoogleMap extends React.Component {
 	}
 
 	render() {
-		const {filterIsVisible} = this.props;
+		const {detailIsVisible} = this.props;
 		return (
-				<div className={`row ${filterIsVisible ? 'filter-is-visible' : ''}`}>
+				<div className={`row ${detailIsVisible ? 'hide' : ''}`}>
 					<div className="col-md-12">
 						<div className="mapContainer">
 			          		<div id="map" ref="map"></div>

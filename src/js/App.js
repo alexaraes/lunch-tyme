@@ -16,12 +16,12 @@ class App extends React.Component {
       restaurants: data.restaurants,
       selectedRestaurant: data.restaurants[0],
       selectedRestaurantId: 0,
-      filterIsVisible: null,
+      detailIsVisible: null,
       isFiltering: false
     }
 
     this.selectRestaurant = this.selectRestaurant.bind(this);
-    this.toggleFilter = this.toggleFilter.bind(this);
+    this.toggleDetail = this.toggleDetail.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
   }
@@ -64,18 +64,17 @@ class App extends React.Component {
       this.setState({
           isFiltering: !isFiltering
       })
-      console.log(isFiltering);
   }
 
-  toggleFilter() {
+  toggleDetail() {
     this.setState({
-      filterIsVisible: !this.state.filterIsVisible
+      detailIsVisible: !this.state.detailIsVisible
     })
 
   }
 
   selectRestaurant(restaurant, id, scroll, e) {
-    this.toggleFilter(e);
+    this.toggleDetail(e);
     this.setState({
       selectedRestaurant: restaurant,
       selectedRestaurantId: id
@@ -93,21 +92,22 @@ class App extends React.Component {
   }
 
   render(){
-    const {restaurants, selectedRestaurant, filterIsVisible, selectedRestaurantId} = this.state;
+    const {restaurants, selectedRestaurant, detailIsVisible, selectedRestaurantId} = this.state;
 
     return (
       <div className="row">
         <div className="listings col-md-6 col-xs-12">
             <Header 
-                toggleFilter={this.toggleFilter} 
-                handleFilterChange={this.handleFilterChange}
+                detailIsVisible={detailIsVisible}
+                toggleDetail={this.toggleDetail} 
+                handleDetailChange={this.handleDetailChange}
             />
-            <div className={`cards container ${filterIsVisible ? 'hide' : ''} `}>
+            <div className={`cards container ${detailIsVisible ? 'cards-slide-out' : 'cards-slide-in'}`}>
                 <div className="cards-list row "> 
                     
                     {
                         restaurants.map((restaurant, index) => {
-                            return <Card 
+                            return <Card
                                 key={index} 
                                 index={index}
                                 restaurant={restaurant} 
@@ -120,24 +120,23 @@ class App extends React.Component {
             </div>
         </div>
 
-        <div className="col-md-6 col-xs-12">
-          <GoogleMap 
+        <div className="hidden-sm-down col-md-6 col-xs-12 hide">
+          <GoogleMap
             restaurants={restaurants} 
             selectedRestaurant={selectedRestaurant}
             selectedRestaurantId={selectedRestaurantId} 
             selectRestaurant={this.selectRestaurant}
           />
-          
         </div>
-        <div className={`test ${filterIsVisible ? 'slide-in': 'slide-out'}`}>
+        <div className={`test hidden-md-up ${detailIsVisible ? 'slide-in': 'slide-out'}`}>
           <Detail 
             restaurants={restaurants} 
             selectedRestaurant={selectedRestaurant}
             selectedRestaurantId={selectedRestaurantId}
             selectRestaurant={this.selectRestaurant}
-            filterIsVisible={filterIsVisible} 
-            toggleFilter={this.toggleFilter} 
-            handleFilterChange={this.handleFilterChange}
+            detailIsVisible={detailIsVisible} 
+            toggleDetail={this.toggleDetail} 
+            handleDetailChange={this.handleDetailChange}
           />
         </div>
       </div>
