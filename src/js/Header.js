@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Header = ({filterIsVisible, toggleFilter, handleFilterChange}) => {
 	return (
 		<div className="row header">
-			<div className={`col-xs-2 img-responsive`}>
+			<div className="col-xs-2 img-responsive" onClick={(e) => toggleFilter(e)} >
 				<img className="arrow-icon" src={require("../images/ic_webBack@2x.png")} />
 			</div>
 			<div className="col-xs-8">
