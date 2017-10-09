@@ -2,19 +2,10 @@ $transition-easing: cubic-bezier(0.455, 0.030, 0.515, 0.955);
 $dark-green: #34B379;
 $light-green: #43E895;
 
-// avenir demi bold would be here except that I do not have access to that particular web font 
-// and it's like $90 so we'll just pretend I have both
-
-@font-face {
-  font-family: 'AvenirNextLTPro-Regular';
-  src: url('fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype'),  url('fonts/AvenirNextLTPro-Regular.otf')  format('opentype'),
-         url('fonts/AvenirNextLTPro-Regular.woff') format('woff'), url('fonts/AvenirNextLTPro-Regular.ttf')  format('truetype'), url('fonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+// avenir web fonts would be here except that it's like $90 so we'll just pretend
 
 $header-font: 'AvenirNext-DemiBold';
-$sub-font: "AvenirNextLTPro-Regular";
+$sub-font: "AvenirNext-Regular";
 
 body {
     padding: 50px 0;
