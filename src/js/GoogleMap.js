@@ -75,7 +75,7 @@ class GoogleMap extends React.Component {
 	            }
 	        });
 
-	        const content = `<div class="marker">${name}</div><div class="marker">${line1}</div><div class="marker">${line2}</div><div class="marker">${line3}</div>`
+	        const content = `<div class="title-marker">${name}</div><div class="marker">${line1}</div><div class="marker">${line2}</div><div class="marker">${line3}</div>`
 	        const iw = new google.maps.InfoWindow({
 	        	content: content
 	        })
@@ -98,8 +98,9 @@ class GoogleMap extends React.Component {
 	}
 
 	render() {
+		const {filterIsVisible} = this.props;
 		return (
-				<div className="row">
+				<div className={`row ${filterIsVisible ? 'filter-is-visible' : ''}`}>
 					<div className="col-md-12">
 						<div className="mapContainer">
 			          		<div id="map" ref="map"></div>

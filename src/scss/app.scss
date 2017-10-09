@@ -9,6 +9,7 @@ body {
     background-color: #f3f3f3;
     font-family: $sub-font;
     color: white;
+    overflow-x: hidden;
 }
 h1 {
     font-size: 20px;
@@ -57,73 +58,25 @@ header {
         }
     }
 }
-.filter {
-    transform: translateY(-100%);
-    transition: transform 0.3s $transition-easing;
-    position: fixed;
-    top: 0;
-    height: auto;
-    left: auto;
-    right: 0;
-    width: 50%;
-    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-    background-color: #fff;
-    z-index: 3;
-    text-align: left;
-    padding: 32px 130px 30px 30px;
-    .filterBox {
-        margin: 0 20px 20px 0;
-        display: inline-block;
-        label {
-            display: block;
-        }
-        &.filterFrom {
-            margin-right: 10px;
-        }
-    }
-    .btn-filter {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        width: auto;
-        @media (min-width: 992px) {
-            top: 50px;
-            width: 80px;
-        }
-    }
-}
-.filter-is-visible {
-    .filter {
-        transform: translateY(0%);
-    }
-    .btn-filter {
-        background-color: $light-green;
-        &:hover, &:active {
-            background-color: $light-green;
-            color: #fff;
-        }
-    }
-}
 .mapContainer {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     bottom: 0;
-    right: 50%;
+    left: 50%;
     z-index: 2;
-    // @media (min-width: 375px) 
-    // and (max-width: 667px) 
-    // and (-webkit-min-device-pixel-ratio: 2) {
-    //     display: none;
-    // }
 }
 #map {
     width: 100%;
     height: 100%;
     background-color: rgba(173, 216, 230, 0.4); //remove
 }
-.marker {
+.marker, .title-marker {
     color: $dark-green;
+}
+.title-marker {
+    font-family: $header-font;
+    font-size: 16px;
 }
 
 html, body {
@@ -133,7 +86,7 @@ html, body {
 }
 .listings {
     width: 50%;
-    margin-left: 50%;
+    margin-right: 50%;
     position: relative;
     z-index: 3;
     @media (min-width: 375px) 
@@ -149,10 +102,9 @@ html, body {
     max-width: 100%;
 }
 .cards-list {
-    background-color: #fff;
-    padding: 10px;
+    background-color: $light-green;
     &.is-empty {
-        background-color: #f3f3f3;
+        background-color: $dark-green;
     }
 }
 .card {
@@ -189,13 +141,17 @@ html, body {
         padding: 10px 0;
         font-weight: bold;
     }
-    .details {
-        position: relative;
+    .title {
+        position: absolute;
+        top: 275px;
+        right: 10px;
+        font-family: $header-font;
     }
-    .location {
-        // position: absolute;
-        // bottom: 0;
-        // right: 0;
+    .category {
+        position: absolute;
+        top: 300px;
+        right: 10px;
+        font-family: $sub-font;
     }
     .features {
         list-style: none;
@@ -252,4 +208,48 @@ html, body {
         color: #4b4668;
     }
 }
+.slide-btn {
+    margin: 40%;
 
+}
+.test {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    height: 100vh;
+    width: 500px;
+    background-color: $dark-green;
+}
+
+.slide-out {
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+.slide-in {
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+    
+@keyframes slide-in {
+    100% { transform: translateX(100%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(100%); }
+}
+    
+@keyframes slide-out {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(100%); }
+    100% { -webkit-transform: translateX(0%); }
+}

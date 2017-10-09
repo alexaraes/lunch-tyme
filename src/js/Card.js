@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const Card = ({restaurant, selectedRestaurant, selectRestaurant, index}) => {
-	const {name, backgroundImageURL, location} = restaurant;
+	const {name, backgroundImageURL, location, category} = restaurant;
 	const {address, city} = location;
 
 	var bgImg = {
@@ -11,11 +11,14 @@ const Card = ({restaurant, selectedRestaurant, selectRestaurant, index}) => {
     }
 
 	return <div id={`card-${index}`} alt={name} style={bgImg} className={`card col-sm-12 col-md-6 col-lg-4 ${restaurant === selectedRestaurant ? 'is-active' : ''}`} 
-				onClick={() => selectRestaurant(restaurant, index, false)}>
+				onClick={(e) => selectRestaurant(restaurant, index, false, e)}>
 			
-			<div className="details">
-				<span className="location">
+			<div>
+				<span className="details title">
 					{name}
+				</span>
+				<span className="details category">
+					{category}
 				</span>
 			</div>
 		</div>

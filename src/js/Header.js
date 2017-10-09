@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 
 const Header = ({filterIsVisible, toggleFilter, handleFilterChange}) => {
 	return (
-		<header className={`${filterIsVisible ? 'filter-is-visible' : ''}`}>
-	        <h1>Lunch Tyme</h1>
-      	</header>
+			<header>
+		        <h1>Lunch Tyme</h1>
+		        
+					<div style={{width: '20px', backgroundImage: 'url("../images/icon_map@2x.png")'}}/>
+	      	</header>
 	);
 };
 
 Header.propTypes = {
-	filterIsVisible: PropTypes.bool.isRequired,
 	toggleFilter: PropTypes.func.isRequired,
 	handleFilterChange: PropTypes.func.isRequired
 }

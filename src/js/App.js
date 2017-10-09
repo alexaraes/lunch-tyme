@@ -5,6 +5,7 @@ import data from './data/Data';
 import Card from './Card';
 import GoogleMap from './GoogleMap';
 import Header from './Header';
+import Detail from './Detail';
 
 class App extends React.Component {
 
@@ -16,7 +17,7 @@ class App extends React.Component {
       selectedRestaurant: data.restaurants[0],
       selectedRestaurantId: 0,
       filterIsVisible: false,
-      filterBedrooms: 'any'
+      isFiltering: false
     }
 
     this.selectRestaurant = this.selectRestaurant.bind(this);
@@ -25,30 +26,62 @@ class App extends React.Component {
 
   }
 
-  handleFilterChange(e) {
-    const target = e.target;
-    const {value, name} = target;
+  handleFilterChange(e){
+        const target = e.target;
+        const {value, name} = target;
+        //console.log(`${value} ${name}`);
+        this.setState({
+            [name]: value
+        }, function(){
+            this.filterProperties();
+        })
 
-    this.setState({
-      [name]: value
-    })
+    }
+
+  filterProperties(){
+      // const {properties, filterBedrooms, filterBathrooms, filterCars} = this.state;
+      const isFiltering = false;  
+      // //console.log(isFiltering + filterBedrooms);
+
+      // const getFilteredProperties = (properties) => {
+
+      //     const filteredProperties = [];
+      //     properties.map(property => {
+      //         const {bedrooms, bathrooms, carSpaces} = property;
+      //         const match = 
+      //             (bedrooms === parseInt(filterBedrooms) || filterBedrooms === 'any') &&
+      //             (bathrooms === parseInt(filterBathrooms) || filterBathrooms === 'any') &&
+      //             (carSpaces === parseInt(filterCars) || filterCars === 'any');
+
+      //         // if the match is true push this property to filteredProperties
+      //         match && filteredProperties.push(property);
+      //     })
+
+      //     return filteredProperties;
+
+      // }
+
+      this.setState({
+          isFiltering: !isFiltering
+      })
+      console.log(isFiltering);
   }
 
-  toggleFilter(e) {
-    e.preventDefault();
-
+  toggleFilter() {
+    console.log('toggle', this.state.filterIsVisible);
     this.setState({
       filterIsVisible: !this.state.filterIsVisible
     })
+
   }
 
-  selectRestaurant(restaurant, id, scroll) {
-    console.log(this.state.selectedRestaurant, this.state.selectedRestaurantId);
+  selectRestaurant(restaurant, id, scroll, e) {
+    this.toggleFilter(e);
     this.setState({
       selectedRestaurant: restaurant,
       selectedRestaurantId: id
     })
-    console.log(this.state.selectedRestaurant, this.state.selectedRestaurantId);
+
     if(scroll) {
       const target = `#card-${id}`;
       console.log(id);
@@ -65,16 +98,13 @@ class App extends React.Component {
 
     return (
       <div className="row">
-        <div className="listings">
-
+        <div className="listings col-md-6 col-xs-12">
             <Header 
-                filterIsVisible={filterIsVisible} 
                 toggleFilter={this.toggleFilter} 
                 handleFilterChange={this.handleFilterChange}
             />
-
             <div className="cards container">
-                <div className="cards-list row ">
+                <div className="cards-list row "> 
                     
                     {
                         restaurants.map((restaurant, index) => {
@@ -87,21 +117,25 @@ class App extends React.Component {
                             />
                         })
                     }
-                    
                 </div>
             </div>
         </div>
-        <div className="col-md-6">
+
+        <div className="col-md-6 col-xs-12">
           <GoogleMap 
             restaurants={restaurants} 
             selectedRestaurant={selectedRestaurant}
             selectedRestaurantId={selectedRestaurantId} 
             selectRestaurant={this.selectRestaurant}
           />
-        </div>
-        <div className="col-md-6 listings">
           
         </div>
+
+        <Detail 
+          filterIsVisible={filterIsVisible} 
+          toggleFilter={this.toggleFilter} 
+          handleFilterChange={this.handleFilterChange}
+        />
         
       </div>
     )
