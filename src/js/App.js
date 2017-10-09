@@ -129,17 +129,17 @@ class App extends React.Component {
           />
           
         </div>
-
-        <Detail 
-          restaurants={restaurants} 
-          selectedRestaurant={selectedRestaurant}
-          selectedRestaurantId={selectedRestaurantId}
-          selectRestaurant={this.selectRestaurant}
-          filterIsVisible={filterIsVisible} 
-          toggleFilter={this.toggleFilter} 
-          handleFilterChange={this.handleFilterChange}
-        />
-        
+        <div className={`test ${filterIsVisible ? 'slide-in': 'slide-out'}`}>
+          <Detail 
+            restaurants={restaurants} 
+            selectedRestaurant={selectedRestaurant}
+            selectedRestaurantId={selectedRestaurantId}
+            selectRestaurant={this.selectRestaurant}
+            filterIsVisible={filterIsVisible} 
+            toggleFilter={this.toggleFilter} 
+            handleFilterChange={this.handleFilterChange}
+          />
+        </div>
       </div>
     )
   }
