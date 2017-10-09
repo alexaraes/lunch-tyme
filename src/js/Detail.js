@@ -10,8 +10,6 @@ const Detail = ({restaurants, selectedRestaurant, selectedRestaurantId, toggleDe
 	const line2 = formattedAddress[1];
 	const line3 = formattedAddress[2];
 
-	console.log(selectedRestaurant);
-
 	return (
 			<div className="row">
 				<div className="hidden-md hidden-lg col-xs-12">
