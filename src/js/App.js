@@ -46,7 +46,6 @@ class App extends React.Component {
         })
       }
     }
-    console.log(restaurant);
 
     this.setState({
       selectedRestaurant: restaurant,
