@@ -16,12 +16,24 @@ class App extends React.Component {
       restaurants: data.restaurants,
       selectedRestaurant: data.restaurants[0],
       selectedRestaurantId: 0,
-      detailIsVisible: false
+      detailIsVisible: false,
+      isMobile: false
     }
 
     this.selectRestaurant = this.selectRestaurant.bind(this);
     this.toggleDetail = this.toggleDetail.bind(this);
 
+  }
+
+  componentWillMount() {
+    window.addEventListener("resize", () => {
+      if(document.body.clientWidth <= 767) {
+        this.setState({isMobile: true})
+      }
+      else {
+        this.setState({isMobile: false})
+      }
+    })
   }
 
   toggleDetail() {
@@ -56,7 +68,7 @@ class App extends React.Component {
 
 
   render(){
-    const {restaurants, selectedRestaurant, detailIsVisible, selectedRestaurantId} = this.state;
+    const {restaurants, selectedRestaurant, detailIsVisible, selectedRestaurantId, isMobile} = this.state;
 
     return (
       <div className="row">
@@ -83,7 +95,7 @@ class App extends React.Component {
             </div>
         </div>
 
-        <div className={`hidden-sm-down col-md-6 col-xs-12 ${detailIsVisible ? 'hide' : ''}`}>
+        <div className={`hidden-sm-down col-md-6 col-xs-12 ${isMobile ? 'hide' : ''}`}>
           <GoogleMap
             detailIsVisible={detailIsVisible}
             restaurants={restaurants} 
