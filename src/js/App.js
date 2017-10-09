@@ -39,7 +39,6 @@ class App extends React.Component {
       selectedRestaurant: restaurant,
       selectedRestaurantId: id
     })
-
     if(scroll) {
       const target = `#card-${id}`;
       

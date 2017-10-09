@@ -76,18 +76,15 @@ class GoogleMap extends React.Component {
 
 	        const content = `<div class="title-marker">${name}</div><div class="marker">${line1}</div><div class="marker">${line2}</div><div class="marker">${line3}</div>`
 	        const iw = new google.maps.InfoWindow({
-	        	content: content,
-	        	disableAutoPan: false
+	        	content: content
 	        })
 
 	        this.marker.iw = iw;
-
-
 	 
 	        this.marker.addListener('click', function() {
 
 	        	this.hideAll();
-
+	        	
 	            selectRestaurant(restaurant, index, true);
  
 	        }.bind(this));

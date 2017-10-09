@@ -16,7 +16,7 @@ const Card = ({detailIsVisible, restaurant, selectedRestaurant, selectRestaurant
 				className={`card col-sm-12 col-md-6 col-lg-4 ${restaurant === selectedRestaurant ? 'is-active' : ''} `} 
 				onClick={(e) => selectRestaurant(restaurant, index, false, e)}>
 			
-			<div>
+			<div className="gradient">
 				<span className="card-title">
 					{name}
 				</span>
