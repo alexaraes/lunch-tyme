@@ -29,7 +29,7 @@ class GoogleMap extends React.Component {
 		this.map = new google.maps.Map(this.refs.map, {
           center: {lat: lat, lng: lng},
           mapTypeControl: false,
-          zoom: 8
+          zoom: 15
         });
 
         this.createMarkers(restaurants);
@@ -84,7 +84,7 @@ class GoogleMap extends React.Component {
 	        this.marker.addListener('click', function() {
 
 	        	this.hideAll();
-	        	
+
 	            selectRestaurant(restaurant, index, true);
  
 	        }.bind(this));

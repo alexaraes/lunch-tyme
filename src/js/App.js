@@ -25,28 +25,34 @@ class App extends React.Component {
   }
 
   toggleDetail() {
+    window.scrollTo(0, 0);
     this.setState({
       detailIsVisible: !this.state.detailIsVisible
     })
   }
 
   selectRestaurant(restaurant, id, scroll, e) {
+
     if(document.body.clientWidth <= 767) {
       this.toggleDetail(e);
     }
+    else {
+      if(scroll) {
+        const target = `#card-${id}`;
+        
+        jump(target, {
+          duration: 800,
+          easing: easeInOutCubic
+        })
+      }
+    }
+    console.log(restaurant);
 
     this.setState({
       selectedRestaurant: restaurant,
       selectedRestaurantId: id
     })
-    if(scroll) {
-      const target = `#card-${id}`;
-      
-      jump(target, {
-        duration: 800,
-        easing: easeInOutCubic
-      })
-    }
+    
   }
 
 
@@ -60,7 +66,7 @@ class App extends React.Component {
                 detailIsVisible={detailIsVisible}
                 toggleDetail={this.toggleDetail} 
             />
-            <div className={`cards container ${detailIsVisible ? 'cards-slide-out' : 'cards-slide-in'}`}>
+            <div className={`cards container ${detailIsVisible ? 'cards-slide-out hide' : 'cards-slide-in'}`}>
                 <div className="cards-list row "> 
                     
                     {

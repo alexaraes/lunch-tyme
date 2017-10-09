@@ -10,7 +10,7 @@ const Detail = ({restaurants, selectedRestaurant, selectedRestaurantId, toggleDe
 	const line2 = formattedAddress[1];
 	const line3 = formattedAddress[2];
 
-	const {formattedPhone, twitter} = contact;
+	console.log(selectedRestaurant);
 
 	return (
 			<div className="row">
@@ -28,8 +28,15 @@ const Detail = ({restaurants, selectedRestaurant, selectedRestaurantId, toggleDe
 				</div>
 				<div className="hidden-md hidden-lg col-xs-12">
 					<div className=" detail-info"><span>{line1}</span><br /><span>{line2}</span></div>
-					<div className=" detail-info">{formattedPhone}</div>
-					<div className=" detail-info">{`@${twitter}`}</div>
+					{(() => {
+				        if(contact === null) {
+				        	return <div className=" detail-info">No contact information available.</div>
+				        }
+				        else {
+				        	return (<div><div className=" detail-info">{contact.formattedPhone}</div> 
+				        			<div className=" detail-info">{`@${contact.twitter}`}</div></div>)
+				        }
+				      })()}
 				</div>
 			</div>
 	);
