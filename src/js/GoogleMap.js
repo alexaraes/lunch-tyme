@@ -11,7 +11,7 @@ class GoogleMap extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const {selectedRestaurant, selectedRestaurantId} = nextProps;
+		const {selectRestaurant, selectedRestaurant, selectedRestaurantId} = nextProps;
 		const {location} = selectedRestaurant;
 		const {latitude, longitude} = location;
 
@@ -22,21 +22,20 @@ class GoogleMap extends React.Component {
 	}
 
 	componentDidMount() {
-		const {restaurants, selectedRestaurant} = this.props;
+		const {restaurants, selectedRestaurant, selectRestaurant} = this.props;
 		const {location} = selectedRestaurant;
 		const {lat, lng, address} = location;
 
 		this.map = new google.maps.Map(this.refs.map, {
           center: {lat: lat, lng: lng},
           mapTypeControl: false,
-          zoom: 14
+          zoom: 8
         });
 
         this.createMarkers(restaurants);
 	}
 
 	showInfoWindow(index) {
-		console.log(index);
 		const {markers} = this.state;
 		markers[index] && markers[index].iw.open(this.map, markers[index]);
 	}
@@ -52,7 +51,7 @@ class GoogleMap extends React.Component {
 
 	createMarkers(restaurants){
  
-	    const {selectRestaurant, selectedRestaurant, selectedRestaurantId} = this.props;
+	    const {selectRestaurant, selectedRestaurant, selectedRestaurantId, detailIsVisible} = this.props;
 	    
 	    const {markers} = this.state;
 	 
@@ -64,8 +63,10 @@ class GoogleMap extends React.Component {
 	        const line2 = formattedAddress[1];
 	        const line3 = formattedAddress[2];
 
+	        const centerLatLng = new google.maps.LatLng(lat, lng);
+
 	        this.marker = new google.maps.Marker({
-	            position: {lat: lat, lng: lng},
+	            position: centerLatLng,
 	            map: this.map,
 	            label: {
 	                color: '#ffffff',
@@ -75,10 +76,13 @@ class GoogleMap extends React.Component {
 
 	        const content = `<div class="title-marker">${name}</div><div class="marker">${line1}</div><div class="marker">${line2}</div><div class="marker">${line3}</div>`
 	        const iw = new google.maps.InfoWindow({
-	        	content: content
+	        	content: content,
+	        	disableAutoPan: false
 	        })
 
 	        this.marker.iw = iw;
+
+
 	 
 	        this.marker.addListener('click', function() {
 
@@ -92,26 +96,37 @@ class GoogleMap extends React.Component {
 
 	        this.showInfoWindow(selectedRestaurantId);
 	    })
+
+		const bounds = new google.maps.LatLngBounds();
+
+		for (var i = 0; i < markers.length; i++) {
+		 	bounds.extend(markers[i].getPosition());
+		}
+
+		this.map.fitBounds(bounds);
 	 
 	}
 
 	render() {
 		const {detailIsVisible} = this.props;
 		return (
-				<div className={`row ${detailIsVisible ? 'hide' : ''}`}>
-					<div className="col-md-12">
-						<div className="mapContainer">
-			          		<div id="map" ref="map"></div>
-			        	</div>
-			        </div> 
-	        	</div> 
+			<div className="row">
+				<div className="col-md-12">
+					<div className="mapContainer">
+		          		<div id="map" ref="map"></div>
+		        	</div>
+		        </div> 
+        	</div> 
 		)
 	}
 }
 
 GoogleMap.propTypes = {
 	restaurants: PropTypes.array.isRequired,
-	selectRestaurant: PropTypes.func.isRequired
+	selectRestaurant: PropTypes.func.isRequired,
+	selectedRestaurant: PropTypes.object.isRequired,
+	selectedRestaurantId: PropTypes.number.isRequired, 
+	detailIsVisible: PropTypes.bool.isRequired
 };
 
 export default GoogleMap;

@@ -16,65 +16,25 @@ class App extends React.Component {
       restaurants: data.restaurants,
       selectedRestaurant: data.restaurants[0],
       selectedRestaurantId: 0,
-      detailIsVisible: null,
-      isFiltering: false
+      detailIsVisible: false
     }
 
     this.selectRestaurant = this.selectRestaurant.bind(this);
     this.toggleDetail = this.toggleDetail.bind(this);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
 
-  }
-
-  handleFilterChange(e){
-        const target = e.target;
-        const {value, name} = target;
-        //console.log(`${value} ${name}`);
-        this.setState({
-            [name]: value
-        }, function(){
-            this.filterProperties();
-        })
-
-    }
-
-  filterProperties(){
-      // const {properties, filterBedrooms, filterBathrooms, filterCars} = this.state;
-      const isFiltering = false;  
-      // //console.log(isFiltering + filterBedrooms);
-
-      // const getFilteredProperties = (properties) => {
-
-      //     const filteredProperties = [];
-      //     properties.map(property => {
-      //         const {bedrooms, bathrooms, carSpaces} = property;
-      //         const match = 
-      //             (bedrooms === parseInt(filterBedrooms) || filterBedrooms === 'any') &&
-      //             (bathrooms === parseInt(filterBathrooms) || filterBathrooms === 'any') &&
-      //             (carSpaces === parseInt(filterCars) || filterCars === 'any');
-
-      //         // if the match is true push this property to filteredProperties
-      //         match && filteredProperties.push(property);
-      //     })
-
-      //     return filteredProperties;
-
-      // }
-
-      this.setState({
-          isFiltering: !isFiltering
-      })
   }
 
   toggleDetail() {
     this.setState({
       detailIsVisible: !this.state.detailIsVisible
     })
-
   }
 
   selectRestaurant(restaurant, id, scroll, e) {
-    this.toggleDetail(e);
+    if(document.body.clientWidth <= 767) {
+      this.toggleDetail(e);
+    }
+
     this.setState({
       selectedRestaurant: restaurant,
       selectedRestaurantId: id
@@ -82,7 +42,6 @@ class App extends React.Component {
 
     if(scroll) {
       const target = `#card-${id}`;
-      console.log(id);
       
       jump(target, {
         duration: 800,
@@ -90,6 +49,7 @@ class App extends React.Component {
       })
     }
   }
+
 
   render(){
     const {restaurants, selectedRestaurant, detailIsVisible, selectedRestaurantId} = this.state;
@@ -100,7 +60,6 @@ class App extends React.Component {
             <Header 
                 detailIsVisible={detailIsVisible}
                 toggleDetail={this.toggleDetail} 
-                handleDetailChange={this.handleDetailChange}
             />
             <div className={`cards container ${detailIsVisible ? 'cards-slide-out' : 'cards-slide-in'}`}>
                 <div className="cards-list row "> 
@@ -120,8 +79,9 @@ class App extends React.Component {
             </div>
         </div>
 
-        <div className="hidden-sm-down col-md-6 col-xs-12 hide">
+        <div className={`hidden-sm-down col-md-6 col-xs-12 ${detailIsVisible ? 'hide' : ''}`}>
           <GoogleMap
+            detailIsVisible={detailIsVisible}
             restaurants={restaurants} 
             selectedRestaurant={selectedRestaurant}
             selectedRestaurantId={selectedRestaurantId} 
@@ -135,8 +95,7 @@ class App extends React.Component {
             selectedRestaurantId={selectedRestaurantId}
             selectRestaurant={this.selectRestaurant}
             detailIsVisible={detailIsVisible} 
-            toggleDetail={this.toggleDetail} 
-            handleDetailChange={this.handleDetailChange}
+            toggleDetail={this.toggleDetail}
           />
         </div>
       </div>

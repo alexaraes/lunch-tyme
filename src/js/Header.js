@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({detailIsVisible, toggleDetail, handleDetailChange}) => {
+const Header = ({detailIsVisible, toggleDetail}) => {
 	return (
 		<div className="row header">
 			<div className="col-xs-2 img-responsive" onClick={(e) => toggleDetail(e)} >
@@ -21,8 +21,7 @@ const Header = ({detailIsVisible, toggleDetail, handleDetailChange}) => {
 
 Header.propTypes = {
 	detailIsVisible: PropTypes.bool.isRequired,
-	toggleDetail: PropTypes.func.isRequired,
-	handleDetailChange: PropTypes.func.isRequired
+	toggleDetail: PropTypes.func.isRequired
 }
 
 export default Header;
